@@ -7,7 +7,7 @@ import org.springframework.stereotype.Component;
 import java.nio.ByteBuffer;
 import java.util.UUID;
 
-@Component
+@Component("posterPeliculaExistenciaAdapter")
 @RequiredArgsConstructor
 public class PeliculaExistenciaAdapter implements PeliculaExistenciaOutputPort {
 

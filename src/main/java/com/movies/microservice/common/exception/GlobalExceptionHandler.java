@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.method.annotation.MethodArgumentTypeMismatchException;
+import org.springframework.web.multipart.MaxUploadSizeExceededException;
 
 import com.movies.microservice.categoria.domain.exceptions.CategoriaAlreadyExistsException;
 import com.movies.microservice.categoria.domain.exceptions.CategoriaNotFoundException;
@@ -96,4 +97,14 @@ public class GlobalExceptionHandler {
     pd.setProperty("path", req.getDescription(false).replace("uri=", ""));
     // si tienes correlation-id, agrégalo aquí
   }
+
+  @ExceptionHandler(org.springframework.web.multipart.MaxUploadSizeExceededException.class)
+public ProblemDetail handleUploadTooLarge(MaxUploadSizeExceededException ex, WebRequest req) {
+    var pd = ProblemDetail.forStatus(HttpStatus.PAYLOAD_TOO_LARGE);
+    pd.setTitle("Archivo demasiado grande");
+    pd.setDetail("El archivo supera el tamaño máximo permitido.");
+    pd.setProperty("timestamp", java.time.OffsetDateTime.now());
+    pd.setProperty("path", req.getDescription(false).replace("uri=", ""));
+    return pd;
+}
 }

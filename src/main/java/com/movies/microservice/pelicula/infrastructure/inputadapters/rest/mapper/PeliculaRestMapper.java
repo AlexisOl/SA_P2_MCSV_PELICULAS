@@ -5,6 +5,7 @@ import com.movies.microservice.pelicula.application.commands.ActualizarPeliculaC
 import com.movies.microservice.pelicula.domain.Pelicula;
 import com.movies.microservice.pelicula.infrastructure.inputadapters.rest.dto.PeliculaRequest;
 import com.movies.microservice.pelicula.infrastructure.inputadapters.rest.dto.PeliculaResponse;
+import java.util.List;
 
 import java.util.UUID;
 
@@ -48,6 +49,21 @@ public class PeliculaRestMapper {
                 .sinopsis(p.getSinopsis())
                 .duracion(p.getDuracion())
                 .posters(p.getPosters())
+                .cast(p.getCast())
+                .director(p.getDirector())
+                .clasificacion(p.getClasificacion())
+                .activa(p.isActiva())
+                .fechaEstreno(p.getFechaEstreno())
+                .build();
+    }
+    
+    public static PeliculaResponse toResponse(Pelicula p, List<String> posters) {
+        return PeliculaResponse.builder()
+                .id(p.getId().getValue())               // o p.getId().id()
+                .titulo(p.getTitulo())
+                .sinopsis(p.getSinopsis())
+                .duracion(p.getDuracion())
+                .posters(posters)                       // ✅ asignamos los reales
                 .cast(p.getCast())
                 .director(p.getDirector())
                 .clasificacion(p.getClasificacion())
