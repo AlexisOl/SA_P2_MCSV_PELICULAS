@@ -10,6 +10,7 @@ import software.amazon.awssdk.services.s3.S3Client;
 import software.amazon.awssdk.services.s3.model.*;
 
 import java.io.IOException;
+import java.net.URLConnection;
 import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
 import java.util.UUID;
@@ -33,21 +34,29 @@ public class S3PosterStorageAdapter implements PosterStorageOutputPort {
     }
 
     @Override
-    public String upload(UUID posterId, MultipartFile file) {
-        String key = keyFor(posterId, file.getOriginalFilename());
-        try {
-            s3.putObject(PutObjectRequest.builder()
-                    .bucket(bucket)
-                    .key(key)
-                    //.acl(ObjectCannedACL.PUBLIC_READ)
-                    .contentType(file.getContentType())
-                    .build(),
-                    RequestBody.fromBytes(file.getBytes()));
-            return "https://" + bucket + ".s3.amazonaws.com/" + key;
-        } catch (IOException e) {
-            throw new RuntimeException("Error leyendo archivo para S3", e);
+public String upload(UUID posterId, MultipartFile file) {
+    String key = keyFor(posterId, file.getOriginalFilename());
+    try {
+        // 🔹 Detectar tipo MIME por nombre (png, jpg, etc.)
+        String contentType = URLConnection.guessContentTypeFromName(file.getOriginalFilename());
+        if (contentType == null) {
+            contentType = "application/octet-stream";
         }
+
+             s3.putObject(PutObjectRequest.builder()
+                        .bucket(bucket)
+                        .key(key)
+                        .contentType(contentType)        
+                        // .acl(ObjectCannedACL.PUBLIC_READ)  <-- si lo usas
+                        .build(),
+                RequestBody.fromBytes(file.getBytes()));
+
+        // 🔹 Retornar URL del archivo subido
+        return "https://" + bucket + ".s3.amazonaws.com/" + key;
+    } catch (IOException e) {
+        throw new RuntimeException("Error leyendo archivo para S3", e);
     }
+}
 
     @Override
     public String replace(UUID posterId, MultipartFile file, String oldUrl) {
