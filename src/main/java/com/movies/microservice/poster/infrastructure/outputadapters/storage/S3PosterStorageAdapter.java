@@ -37,7 +37,7 @@ public class S3PosterStorageAdapter implements PosterStorageOutputPort {
 public String upload(UUID posterId, MultipartFile file) {
     String key = keyFor(posterId, file.getOriginalFilename());
     try {
-        // 🔹 Detectar tipo MIME por nombre (png, jpg, etc.)
+        
         String contentType = URLConnection.guessContentTypeFromName(file.getOriginalFilename());
         if (contentType == null) {
             contentType = "application/octet-stream";
@@ -51,7 +51,7 @@ public String upload(UUID posterId, MultipartFile file) {
                         .build(),
                 RequestBody.fromBytes(file.getBytes()));
 
-        // 🔹 Retornar URL del archivo subido
+        
         return "https://" + bucket + ".s3.amazonaws.com/" + key;
     } catch (IOException e) {
         throw new RuntimeException("Error leyendo archivo para S3", e);
