@@ -50,7 +50,6 @@ jobs:
       - name: Build and push Docker image
         run: |
           IMAGE=${{ secrets.DOCKER_USERNAME }}/mscv-movies:${{ github.sha }}
-          cd Movies
           docker build -f Dockerfile -t $IMAGE .
           docker push $IMAGE
 
