@@ -1,6 +1,7 @@
 package com.movies.microservice.pelicula.application.outputports.messaging;
 
 import com.movies.microservice.pelicula.domain.events.*;
+import org.springframework.stereotype.Component;
 
 public interface PeliculaEventPublisherOutputPort {
 
