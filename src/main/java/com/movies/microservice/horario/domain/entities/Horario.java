@@ -18,7 +18,7 @@ public class Horario {
     private UUID cinemaId;   // viene del MS de cines
     private UUID salaId;     // viene del MS de cines
     private String idioma;   // ES, EN, SUB, DOB
-    private String formato;  // 2D, 3D, IMAX
+    private String formato;  // 2D, 3D,     aca IMAX
     private LocalDateTime inicio;
     private LocalDateTime fin;
     private BigDecimal precio;
