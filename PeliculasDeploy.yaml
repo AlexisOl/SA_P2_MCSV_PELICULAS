@@ -1,0 +1,93 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: movies-deploy
+  namespace: default
+  labels:
+    app: movies
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: movies
+  template:
+    metadata:
+      labels:
+        app: movies
+    spec:
+      containers:
+        - name: movies
+          image: IMAGE_TAG  # Será reemplazado por GitHub Actions
+          imagePullPolicy: Always
+          ports:
+            - containerPort: 8082
+              protocol: TCP
+          env:
+            - name: SPRING_PROFILES_ACTIVE
+              value: "eks"
+
+            # === DATABASE ===
+            - name: SPRING_DATASOURCE_URL
+              value: "jdbc:mariadb://40.233.27.238:3307/movies_db"
+            - name: SPRING_DATASOURCE_USERNAME
+              value: "app_user"
+            - name: SPRING_DATASOURCE_PASSWORD
+              value: "appSa456."
+
+            # === EUREKA ===
+            - name: EUREKA_CLIENT_SERVICEURL_DEFAULTZONE
+              value: "http://eureka-service:8765/eureka/"
+
+            # === KAFKA MSK (SSL) ===
+            - name: SPRING_KAFKA_BOOTSTRAP_SERVERS
+              value: b-1.kafkap2sa.uqqw98.c10.kafka.us-east-1.amazonaws.com:9094,b-2.kafkap2sa.uqqw98.c10.kafka.us-east-1.amazonaws.com:9094
+            - name: SPRING_KAFKA_CONSUMER_GROUP_ID
+              value: movies-group
+            - name: SPRING_KAFKA_PRODUCER_ACKS
+              value: all
+            - name: SPRING_KAFKA_CONSUMER_AUTO_OFFSET_RESET
+              value: earliest
+
+            # === TRUSTSTORE PASSWORD ===
+            - name: MSK_TRUSTSTORE_PASSWORD
+              value: "changeit"
+
+          # === MONTAR TRUSTSTORE ===
+          volumeMounts:
+            - name: msk-truststore
+              mountPath: /etc/msk-truststore
+              readOnly: true
+
+          # === RECURSOS ===
+          resources:
+            requests:
+              memory: "256Mi"
+              cpu: "100m"
+            limits:
+              memory: "512Mi"
+              cpu: "500m"
+
+          # === PROBES ===
+          livenessProbe:
+            httpGet:
+              path: /actuator/health
+              port: 8082
+            initialDelaySeconds: 60
+            periodSeconds: 10
+            timeoutSeconds: 5
+          readinessProbe:
+            httpGet:
+              path: /actuator/health
+              port: 8082
+            initialDelaySeconds: 60
+            periodSeconds: 10
+            timeoutSeconds: 5
+
+      # === VOLUMEN TRUSTSTORE ===
+      volumes:
+        - name: msk-truststore
+          secret:
+            secretName: msk-truststore
+            items:
+              - key: truststore.jks
+                path: truststore.jks
