@@ -2,7 +2,10 @@ package com.movies.microservice.pelicula.infrastructure.inputadapters.rest;
 
 import com.movies.microservice.pelicula.application.commands.ListarPeliculasQuery;
 import com.movies.microservice.pelicula.application.inputports.*;
+<<<<<<< HEAD
 import com.movies.microservice.pelicula.application.outputports.query.PosterQueryOutputPort;
+=======
+>>>>>>> 17fa7f3 (first commit)
 import com.movies.microservice.pelicula.domain.Pelicula;
 import com.movies.microservice.pelicula.infrastructure.inputadapters.rest.dto.PeliculaRequest;
 import com.movies.microservice.pelicula.infrastructure.inputadapters.rest.dto.PeliculaResponse;
@@ -48,9 +51,12 @@ public class PeliculaControllerAdapter {
         return PeliculaRestMapper.toResponse(p);
     }
 
+<<<<<<< HEAD
     //private final ListarPeliculasInputPort listar;
     private final PosterQueryOutputPort posterQuery; // <<— nuevo
 
+=======
+>>>>>>> 17fa7f3 (first commit)
     @GetMapping
     public List<PeliculaResponse> listar(
             @RequestParam(required = false) String q,
@@ -73,11 +79,15 @@ public class PeliculaControllerAdapter {
                 .page(page).size(size).sort(sort)
                 .build();
 
+<<<<<<< HEAD
         return listar.listar(query).stream()
         .map(p -> {
             var urls = posterQuery.findUrlsByPelicula(p.getId().getValue());
             return PeliculaRestMapper.toResponse(p, urls); 
         })
         .toList();
+=======
+        return listar.listar(query).stream().map(PeliculaRestMapper::toResponse).toList();
+>>>>>>> 17fa7f3 (first commit)
     }
 }

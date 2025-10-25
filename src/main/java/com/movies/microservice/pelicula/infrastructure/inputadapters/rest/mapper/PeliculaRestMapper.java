@@ -5,7 +5,10 @@ import com.movies.microservice.pelicula.application.commands.ActualizarPeliculaC
 import com.movies.microservice.pelicula.domain.Pelicula;
 import com.movies.microservice.pelicula.infrastructure.inputadapters.rest.dto.PeliculaRequest;
 import com.movies.microservice.pelicula.infrastructure.inputadapters.rest.dto.PeliculaResponse;
+<<<<<<< HEAD
 import java.util.List;
+=======
+>>>>>>> 17fa7f3 (first commit)
 
 import java.util.UUID;
 
@@ -56,6 +59,7 @@ public class PeliculaRestMapper {
                 .fechaEstreno(p.getFechaEstreno())
                 .build();
     }
+<<<<<<< HEAD
     
     public static PeliculaResponse toResponse(Pelicula p, List<String> posters) {
         return PeliculaResponse.builder()
@@ -71,4 +75,6 @@ public class PeliculaRestMapper {
                 .fechaEstreno(p.getFechaEstreno())
                 .build();
     }
+=======
+>>>>>>> 17fa7f3 (first commit)
 }

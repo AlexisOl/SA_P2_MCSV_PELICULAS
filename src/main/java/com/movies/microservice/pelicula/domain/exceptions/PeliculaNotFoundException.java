@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 // pelicula/domain/exceptions/PeliculaNotFoundException.java
 package com.movies.microservice.pelicula.domain.exceptions;
 
@@ -9,5 +10,13 @@ public class PeliculaNotFoundException extends RuntimeException {
 
     public PeliculaNotFoundException(String msg) {
         super(msg);
+=======
+package com.movies.microservice.pelicula.domain.exceptions;
+
+public class PeliculaNotFoundException extends RuntimeException {
+
+    public PeliculaNotFoundException(String message) {
+        super(message);
+>>>>>>> 17fa7f3 (first commit)
     }
 }
