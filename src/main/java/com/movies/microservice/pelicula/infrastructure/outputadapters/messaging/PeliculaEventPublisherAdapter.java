@@ -10,7 +10,7 @@ import java.util.Map;
 import org.springframework.context.annotation.Profile;
 
 
-@Profile("prod")
+//@Profile("prod")
 @Component
 @RequiredArgsConstructor
 public class PeliculaEventPublisherAdapter implements PeliculaEventPublisherOutputPort {

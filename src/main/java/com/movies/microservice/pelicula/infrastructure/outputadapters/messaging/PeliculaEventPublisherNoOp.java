@@ -6,7 +6,7 @@ import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Component;
 
 @Component
-@Profile("dev") // <— sólo en dev
+//@Profile("dev") // <— sólo en dev
 public class PeliculaEventPublisherNoOp implements PeliculaEventPublisherOutputPort {
 
     @Override
