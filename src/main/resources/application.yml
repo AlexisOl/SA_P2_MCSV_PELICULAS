@@ -57,13 +57,13 @@ spring:
         ssl.truststore.password: ${MSK_TRUSTSTORE_PASSWORD}
 
   # === AWS S3 (opcional) ===
-  cloud:
-    aws:
-      region:
-        static: us-east-1
-      credentials:
-        access-key: ${AWS_ACCESS_S3_KEY_ID}
-        secret-key: ${AWS_SECRET_ACCESS_S3_KEY_ID}
+  aws:
+    region: us-east-1
+    accessKeyId: ${AWS_ACCESS_S3_KEY_ID}
+    secretKey: ${AWS_SECRET_ACCESS_S3_KEY_ID}
+    s3:
+      bucket: sa-p2-img
+
 
 # === EUREKA ===
 eureka:
