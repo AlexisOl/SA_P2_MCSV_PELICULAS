@@ -10,6 +10,9 @@ jobs:
     permissions:
       contents: read
       packages: read
+    env:
+      AWS_ACCESS_S3_KEY_ID: ${{ secrets.AWS_ACCESS_S3_KEY_ID }}
+      AWS_SECRET_ACCESS_S3_KEY_ID: ${{ secrets.AWS_SECRET_ACCESS_S3_KEY_ID }}
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
