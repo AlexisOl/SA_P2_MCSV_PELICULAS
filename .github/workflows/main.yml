@@ -4,6 +4,13 @@ on:
   push:
     branches:
       - main
+    paths:
+      - 'pom.xml'
+      - 'Dockerfile'
+      - 'PeliculasDeploy.yaml'
+      - 'PeliculasService.yaml'
+      - 'src/**'
+      - '.github/workflows/deploy-movies.yml'
 
 jobs:
   build-and-deploy:
