@@ -1,0 +1,95 @@
+server:
+  port: 8082  # Cambia si usas otro puerto
+
+spring:
+  application:
+    name: mcsv-movies
+
+  # === DATABASE ===
+  datasource:
+    driver-class-name: org.mariadb.jdbc.Driver
+    url: jdbc:mariadb://40.233.27.238:3307/movies_db
+    username: app_user
+    password: appSa456.
+
+  jpa:
+    database-platform: org.hibernate.dialect.MariaDBDialect
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+    properties:
+      hibernate:
+        format_sql: true
+
+  # === FLYWAY ===
+  flyway:
+    enabled: true
+    url: jdbc:mariadb://40.233.27.238:3307/movies_db
+    user: app_user
+    password: appSa456.
+    locations: classpath:db/migration
+    baseline-on-migrate: true
+
+  # === KAFKA MSK (SSL) ===
+  kafka:
+    bootstrap-servers:
+      - b-1.kafkap2sa.uqqw98.c10.kafka.us-east-1.amazonaws.com:9094
+      - b-2.kafkap2sa.uqqw98.c10.kafka.us-east-1.amazonaws.com:9094
+
+    consumer:
+      group-id: movies-group
+      auto-offset-reset: earliest
+      key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+      value-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+      properties:
+        security.protocol: SSL
+        ssl.truststore.location: /etc/msk-truststore/truststore.jks
+        ssl.truststore.password: ${MSK_TRUSTSTORE_PASSWORD}
+
+    producer:
+      key-serializer: org.apache.kafka.common.serialization.StringSerializer
+      value-serializer: org.apache.kafka.common.serialization.StringSerializer
+      acks: all
+      retries: 3
+      properties:
+        security.protocol: SSL
+        ssl.truststore.location: /etc/msk-truststore/truststore.jks
+        ssl.truststore.password: ${MSK_TRUSTSTORE_PASSWORD}
+
+  # === AWS S3 (opcional) ===
+  cloud:
+    aws:
+      region:
+        static: us-east-1
+      credentials:
+        access-key: ${AWS_ACCESS_S3_KEY_ID}
+        secret-key: ${AWS_SECRET_ACCESS_S3_KEY_ID}
+
+# === EUREKA ===
+eureka:
+  client:
+    service-url:
+      defaultZone: http://eureka-service:8765/eureka/
+    register-with-eureka: true
+    fetch-registry: true
+  instance:
+    prefer-ip-address: true
+
+# === SWAGGER ===
+springdoc:
+  swagger-ui:
+    path: /swagger
+
+# === LOGGING ===
+logging:
+  level:
+    root: INFO
+    com.example.movies: DEBUG
+    org.hibernate.SQL: DEBUG
+    org.hibernate.type.descriptor.sql.BasicBinder: TRACE
+    org.apache.kafka: WARN
+    org.springframework.kafka: INFO
+
+# === PERFIL ===
+profiles:
+  active: eks
