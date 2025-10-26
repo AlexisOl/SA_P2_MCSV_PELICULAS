@@ -18,7 +18,7 @@ import java.util.UUID;
 import org.springframework.http.ResponseEntity;
 
 @RestController
-@RequestMapping("/api/v1")
+@RequestMapping("/api/v1/detalle-categoria")
 @RequiredArgsConstructor
 public class DetalleCategoriaControllerAdapter {
 
@@ -66,7 +66,7 @@ public class DetalleCategoriaControllerAdapter {
                 .toList();
     }
 
-    @GetMapping("/categorias/{categoriaId}/peliculas")
+    @GetMapping("/{categoriaId}/peliculas")
     public List<PeliculaPorCategoriaResponse> listarPeliculas(@PathVariable UUID categoriaId) {
         var ids = listarPeliculas.listarPeliculas(categoriaId);
         var titulos = peliculaQuery.findTitlesByIds(new java.util.HashSet<>(ids));

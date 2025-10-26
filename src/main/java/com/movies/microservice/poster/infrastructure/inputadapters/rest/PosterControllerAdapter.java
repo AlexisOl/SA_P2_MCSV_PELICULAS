@@ -12,7 +12,7 @@ import java.util.List;
 import java.util.UUID;
 
 @RestController
-@RequestMapping("/api/v1")
+@RequestMapping("/api/v1/posters")
 @RequiredArgsConstructor
 public class PosterControllerAdapter {
 
@@ -38,25 +38,25 @@ public ResponseEntity<PosterResponse> crear(
 }
 
     // Reemplazar archivo (multipart)
-    @PutMapping(value = "/posters/{posterId}", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
+    @PutMapping(value = "/{posterId}", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
     public PosterResponse actualizar(@PathVariable UUID posterId, @RequestPart("file") MultipartFile file) {
         return PosterRestMapper.toResponse(actualizar.actualizar(posterId, file));
     }
 
     // Eliminar (borra DB + S3)
-    @DeleteMapping("/posters/{posterId}")
+    @DeleteMapping("/{posterId}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void eliminar(@PathVariable UUID posterId) {
         eliminar.eliminar(posterId);
     }
 
     // Activar / Desactivar
-    @PostMapping("/posters/{posterId}/activar")
+    @PostMapping("/{posterId}/activar")
     public PosterResponse activar(@PathVariable UUID posterId) {
         return PosterRestMapper.toResponse(activar.activar(posterId));
     }
 
-    @PostMapping("/posters/{posterId}/desactivar")
+    @PostMapping("/{posterId}/desactivar")
     public PosterResponse desactivar(@PathVariable UUID posterId) {
         return PosterRestMapper.toResponse(desactivar.desactivar(posterId));
     }
