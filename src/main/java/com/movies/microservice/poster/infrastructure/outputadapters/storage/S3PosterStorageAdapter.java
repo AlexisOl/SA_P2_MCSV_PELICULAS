@@ -21,7 +21,7 @@ public class S3PosterStorageAdapter implements PosterStorageOutputPort {
 
     private final S3Client s3;
 
-    @Value("${aws.s3.bucket}")
+    @Value("${spring.cloud.aws.s3.bucket}")
     private String bucket;
 
     private static String sanitize(String original) {
