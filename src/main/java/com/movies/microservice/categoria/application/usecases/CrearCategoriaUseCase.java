@@ -6,10 +6,12 @@ import com.movies.microservice.categoria.application.outputports.persistence.Cat
 import com.movies.microservice.categoria.domain.entities.Categoria;
 import com.movies.microservice.categoria.domain.events.CategoriaCreadaEvent;
 import com.movies.microservice.categoria.domain.exceptions.CategoriaAlreadyExistsException;
+
 import lombok.RequiredArgsConstructor;
 
 import java.time.LocalDateTime;
 import java.util.UUID;
+import org.springframework.transaction.annotation.Transactional;
 
 @RequiredArgsConstructor
 public class CrearCategoriaUseCase implements CrearCategoriaInputPort {
@@ -18,6 +20,7 @@ public class CrearCategoriaUseCase implements CrearCategoriaInputPort {
     private final CategoriaEventPublisherOutputPort publisher;
 
     @Override
+    @Transactional
     public Categoria crear(String nombre, boolean activa) {
         if (nombre == null || nombre.trim().isEmpty()) {
             throw new IllegalArgumentException("El nombre es obligatorio");

@@ -6,12 +6,15 @@ import com.movies.microservice.categoria.application.outputports.persistence.Cat
 import com.movies.microservice.categoria.domain.entities.Categoria;
 import com.movies.microservice.categoria.domain.events.CategoriaActualizadaEvent;
 import com.movies.microservice.categoria.domain.exceptions.CategoriaNotFoundException;
+
 import lombok.RequiredArgsConstructor;
 
 import java.time.LocalDateTime;
 import java.util.UUID;
+import org.springframework.transaction.annotation.Transactional;
 
 @RequiredArgsConstructor
+@Transactional
 public class EditarCategoriaUseCase implements EditarCategoriaInputPort {
 
     private final CategoriaRepositorioOutputPort repo;

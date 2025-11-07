@@ -10,8 +10,10 @@ import lombok.RequiredArgsConstructor;
 
 import java.time.LocalDateTime;
 import java.util.UUID;
+import org.springframework.transaction.annotation.Transactional;
 
 @RequiredArgsConstructor
+@Transactional
 public class ActivarCategoriaUseCase implements ActivarCategoriaInputPort {
 
     private final CategoriaRepositorioOutputPort repo;
