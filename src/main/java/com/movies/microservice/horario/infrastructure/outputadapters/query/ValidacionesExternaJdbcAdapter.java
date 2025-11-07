@@ -37,7 +37,7 @@ public class ValidacionesExternaJdbcAdapter implements ValidacionesExternaOutput
 
     @Override
     public boolean existeCinema(UUID cinemaId) {
-        // ⚠️ Usa esquema calificado si está en otra BD del mismo MySQL
+        
         Integer n = jdbc.queryForObject(
                 "SELECT COUNT(*) FROM cinema_db.cinema WHERE id = ?",
                 new Object[]{ uuidToBytes(cinemaId) },
