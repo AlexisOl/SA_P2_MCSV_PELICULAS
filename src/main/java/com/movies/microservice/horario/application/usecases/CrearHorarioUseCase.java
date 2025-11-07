@@ -19,9 +19,9 @@ public class CrearHorarioUseCase implements CrearHorarioInputPort {
     private final HorarioRepositorioOutputPort repo;
     private final ValidacionesExternaOutputPort validaciones;
     private final NotificarHorarioOutputPort notificar;
-
-    @Override
+    
     @Transactional
+    @Override
     public Horario crear(Horario horario, Integer fila, Integer columna) {
         horario.validar();
 

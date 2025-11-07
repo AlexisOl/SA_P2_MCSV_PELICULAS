@@ -19,9 +19,9 @@ public class ActivarPeliculaUseCase implements ActivarPeliculaInputPort {
     PeliculaRepositorioOutputPort repo;
     private final @NonNull
     PeliculaEventPublisherOutputPort publisher;
-
-    @Override
+    
     @Transactional
+    @Override
     public Pelicula activar(UUID peliculaId) {
         Pelicula pelicula = repo.findById(new PeliculaId(peliculaId))
                 .orElseThrow(() -> new IllegalArgumentException("Pelicula no encontrada"));

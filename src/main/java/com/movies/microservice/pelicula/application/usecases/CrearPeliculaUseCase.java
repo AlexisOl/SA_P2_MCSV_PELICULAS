@@ -18,9 +18,9 @@ public class CrearPeliculaUseCase implements CrearPeliculaInputPort {
     PeliculaRepositorioOutputPort repo;
     private final @NonNull
     PeliculaEventPublisherOutputPort publisher;
-
-    @Override
+    
     @Transactional
+    @Override
     public Pelicula crear(CrearPeliculaCommand cmd) {
         if (cmd.getDuracion() <= 0) {
             throw new IllegalArgumentException("Duración inválida");

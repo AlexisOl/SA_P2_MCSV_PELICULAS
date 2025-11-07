@@ -19,9 +19,9 @@ public class DesactivarPeliculaUseCase implements DesactivarPeliculaInputPort {
     PeliculaRepositorioOutputPort repo;
     private final @NonNull
     PeliculaEventPublisherOutputPort publisher;
-
-    @Override
+    
     @Transactional
+    @Override
     public Pelicula desactivar(UUID peliculaId) {
         Pelicula pelicula = repo.findById(new PeliculaId(peliculaId))
                 .orElseThrow(() -> new IllegalArgumentException("Pelicula no encontrada"));

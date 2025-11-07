@@ -18,9 +18,9 @@ public class AsignarCategoriaAPeliculaUseCase implements AsignarCategoriaAPelicu
     private final PeliculaExistenciaOutputPort peliculaQuery;
     private final CategoriaQueryOutputPort categoriaQuery;
     private final DetalleCategoriaEventPublisherOutputPort publisher;
-
-    @Override
+    
     @Transactional
+    @Override
     public void asignar(UUID peliculaId, UUID categoriaId) {
         if (peliculaId == null || categoriaId == null) {
             throw new IllegalArgumentException("IDs obligatorios");

@@ -20,9 +20,9 @@ public class ActualizarPeliculaUseCase implements ActualizarPeliculaInputPort {
     PeliculaRepositorioOutputPort repo;
     private final @NonNull
     PeliculaEventPublisherOutputPort publisher;
-
-    @Override
+    
     @Transactional
+    @Override
     public Pelicula actualizar(ActualizarPeliculaCommand cmd) {
         Optional<Pelicula> opt = repo.findById(new PeliculaId(cmd.getPeliculaId()));
         Pelicula actual = opt.orElseThrow(() -> new IllegalArgumentException("Pelicula no encontrada"));

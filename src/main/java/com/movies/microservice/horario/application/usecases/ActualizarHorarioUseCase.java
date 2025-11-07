@@ -16,9 +16,9 @@ import org.springframework.transaction.annotation.Transactional;
 public class ActualizarHorarioUseCase implements ActualizarHorarioInputPort {
 
     private final HorarioRepositorioOutputPort repo;
-
-    @Override
+    
     @Transactional
+    @Override
     public Horario actualizar(UUID horarioId, Horario datos) {
         var existente = repo.findById(horarioId)
                 .orElseThrow(() -> new HorarioNotFoundException("Horario no encontrado"));

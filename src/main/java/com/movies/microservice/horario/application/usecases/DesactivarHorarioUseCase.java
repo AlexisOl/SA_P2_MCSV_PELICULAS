@@ -14,9 +14,9 @@ import org.springframework.transaction.annotation.Transactional;
 public class DesactivarHorarioUseCase implements DesactivarHorarioInputPort {
 
     private final HorarioRepositorioOutputPort repo;
-
-    @Override
+    
     @Transactional
+    @Override
     public Horario desactivar(UUID horarioId) {
         var horario = repo.findById(horarioId)
                 .orElseThrow(() -> new HorarioNotFoundException("Horario no encontrado"));
