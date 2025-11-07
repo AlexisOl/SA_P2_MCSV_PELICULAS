@@ -39,6 +39,7 @@ public class ValidacionesExternaKafkaAdapter implements ValidacionesExternaOutpu
 
             CompletableFuture<Boolean> future = new CompletableFuture<>();
             pendingCine.put(correlationId, future);
+            System.out.println("Kafaka events----------------");
 
             Message<String> message = MessageBuilder
                     .withPayload(payload)
