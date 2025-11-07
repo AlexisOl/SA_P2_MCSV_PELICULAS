@@ -7,6 +7,7 @@ import com.movies.microservice.horario.domain.exceptions.HorarioNotFoundExceptio
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import java.util.UUID;
+import org.springframework.transaction.annotation.Transactional;
 
 //@Service
 @RequiredArgsConstructor
@@ -15,6 +16,7 @@ public class DesactivarHorarioUseCase implements DesactivarHorarioInputPort {
     private final HorarioRepositorioOutputPort repo;
 
     @Override
+    @Transactional
     public Horario desactivar(UUID horarioId) {
         var horario = repo.findById(horarioId)
                 .orElseThrow(() -> new HorarioNotFoundException("Horario no encontrado"));

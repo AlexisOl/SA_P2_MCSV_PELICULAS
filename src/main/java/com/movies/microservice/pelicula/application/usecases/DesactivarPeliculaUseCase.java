@@ -10,6 +10,7 @@ import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 
 import java.util.UUID;
+import org.springframework.transaction.annotation.Transactional;
 
 @RequiredArgsConstructor
 public class DesactivarPeliculaUseCase implements DesactivarPeliculaInputPort {
@@ -20,6 +21,7 @@ public class DesactivarPeliculaUseCase implements DesactivarPeliculaInputPort {
     PeliculaEventPublisherOutputPort publisher;
 
     @Override
+    @Transactional
     public Pelicula desactivar(UUID peliculaId) {
         Pelicula pelicula = repo.findById(new PeliculaId(peliculaId))
                 .orElseThrow(() -> new IllegalArgumentException("Pelicula no encontrada"));

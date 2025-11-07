@@ -9,6 +9,7 @@ import com.movies.microservice.pelicula.domain.events.PeliculaCreadaEvent;
 import com.movies.microservice.pelicula.domain.valueobjects.PeliculaId;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
+import org.springframework.transaction.annotation.Transactional;
 
 @RequiredArgsConstructor
 public class CrearPeliculaUseCase implements CrearPeliculaInputPort {
@@ -19,6 +20,7 @@ public class CrearPeliculaUseCase implements CrearPeliculaInputPort {
     PeliculaEventPublisherOutputPort publisher;
 
     @Override
+    @Transactional
     public Pelicula crear(CrearPeliculaCommand cmd) {
         if (cmd.getDuracion() <= 0) {
             throw new IllegalArgumentException("Duración inválida");

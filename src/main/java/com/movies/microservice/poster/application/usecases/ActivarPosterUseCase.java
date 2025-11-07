@@ -11,6 +11,7 @@ import lombok.RequiredArgsConstructor;
 
 import java.time.LocalDateTime;
 import java.util.UUID;
+import org.springframework.transaction.annotation.Transactional;
 
 @RequiredArgsConstructor
 public class ActivarPosterUseCase implements ActivarPosterInputPort {
@@ -19,6 +20,7 @@ public class ActivarPosterUseCase implements ActivarPosterInputPort {
     private final PosterEventPublisherOutputPort publisher;
 
     @Override
+    @Transactional
     public Poster activar(UUID posterId) {
         Poster poster = repo.findById(posterId)
                 .orElseThrow(() -> new PosterNotFoundException("Poster no encontrado"));

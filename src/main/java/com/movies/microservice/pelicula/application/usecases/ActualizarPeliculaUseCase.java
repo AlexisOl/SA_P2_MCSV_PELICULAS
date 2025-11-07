@@ -11,6 +11,7 @@ import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 
 import java.util.Optional;
+import org.springframework.transaction.annotation.Transactional;
 
 @RequiredArgsConstructor
 public class ActualizarPeliculaUseCase implements ActualizarPeliculaInputPort {
@@ -21,6 +22,7 @@ public class ActualizarPeliculaUseCase implements ActualizarPeliculaInputPort {
     PeliculaEventPublisherOutputPort publisher;
 
     @Override
+    @Transactional
     public Pelicula actualizar(ActualizarPeliculaCommand cmd) {
         Optional<Pelicula> opt = repo.findById(new PeliculaId(cmd.getPeliculaId()));
         Pelicula actual = opt.orElseThrow(() -> new IllegalArgumentException("Pelicula no encontrada"));

@@ -9,6 +9,7 @@ import lombok.RequiredArgsConstructor;
 
 import java.util.*;
 import java.util.stream.Collectors;
+import org.springframework.transaction.annotation.Transactional;
 
 @RequiredArgsConstructor
 public class ReemplazarCategoriasDePeliculaUseCase implements ReemplazarCategoriasDePeliculaInputPort {
@@ -19,6 +20,7 @@ public class ReemplazarCategoriasDePeliculaUseCase implements ReemplazarCategori
     private final DetalleCategoriaEventPublisherOutputPort publisher;
 
     @Override
+    @Transactional
     public void reemplazar(java.util.UUID peliculaId, java.util.Set<java.util.UUID> nuevasCategorias) {
         if (peliculaId == null) {
             throw new IllegalArgumentException("peliculaId obligatorio");

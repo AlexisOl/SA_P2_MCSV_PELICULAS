@@ -9,6 +9,7 @@ import com.movies.microservice.poster.domain.exceptions.PosterNotFoundException;
 import lombok.RequiredArgsConstructor;
 
 import java.util.UUID;
+import org.springframework.transaction.annotation.Transactional;
 
 @RequiredArgsConstructor
 public class EliminarPosterUseCase implements EliminarPosterInputPort {
@@ -17,6 +18,7 @@ public class EliminarPosterUseCase implements EliminarPosterInputPort {
     private final PosterStorageOutputPort storage;
 
     @Override
+    @Transactional
     public void eliminar(UUID posterId) {
         Poster poster = repo.findById(posterId)
                 .orElseThrow(() -> new PosterNotFoundException("Poster no encontrado"));

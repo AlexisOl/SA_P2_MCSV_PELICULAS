@@ -8,14 +8,17 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.UUID;
+import org.springframework.transaction.annotation.Transactional;
 
 //@Service
+
 @RequiredArgsConstructor
 public class ActualizarHorarioUseCase implements ActualizarHorarioInputPort {
 
     private final HorarioRepositorioOutputPort repo;
 
     @Override
+    @Transactional
     public Horario actualizar(UUID horarioId, Horario datos) {
         var existente = repo.findById(horarioId)
                 .orElseThrow(() -> new HorarioNotFoundException("Horario no encontrado"));

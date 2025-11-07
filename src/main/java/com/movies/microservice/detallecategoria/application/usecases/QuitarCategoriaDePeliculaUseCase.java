@@ -7,6 +7,7 @@ import com.movies.microservice.detallecategoria.domain.exceptions.DetalleCategor
 import lombok.RequiredArgsConstructor;
 
 import java.util.UUID;
+import org.springframework.transaction.annotation.Transactional;
 
 @RequiredArgsConstructor
 public class QuitarCategoriaDePeliculaUseCase implements QuitarCategoriaDePeliculaInputPort {
@@ -15,6 +16,7 @@ public class QuitarCategoriaDePeliculaUseCase implements QuitarCategoriaDePelicu
     private final DetalleCategoriaEventPublisherOutputPort publisher;
 
     @Override
+    @Transactional
     public void quitar(UUID peliculaId, UUID categoriaId) {
         if (!repo.exists(peliculaId, categoriaId)) {
             throw new DetalleCategoriaNotFoundException("La categoría no está asignada a la película");

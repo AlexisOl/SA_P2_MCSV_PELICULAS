@@ -11,6 +11,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.time.LocalDateTime;
 import java.util.UUID;
+import org.springframework.transaction.annotation.Transactional;
 
 @RequiredArgsConstructor
 public class ActualizarPosterUseCase implements ActualizarPosterInputPort {
@@ -19,6 +20,7 @@ public class ActualizarPosterUseCase implements ActualizarPosterInputPort {
     private final PosterStorageOutputPort storage;
 
     @Override
+    @Transactional
     public Poster actualizar(UUID posterId, MultipartFile nuevoArchivo) {
         Poster poster = repo.findById(posterId)
                 .orElseThrow(() -> new PosterNotFoundException("Poster no encontrado"));

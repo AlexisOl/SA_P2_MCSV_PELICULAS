@@ -9,6 +9,7 @@ import com.movies.microservice.detallecategoria.domain.exceptions.DetalleCategor
 import lombok.RequiredArgsConstructor;
 
 import java.util.UUID;
+import org.springframework.transaction.annotation.Transactional;
 
 @RequiredArgsConstructor
 public class AsignarCategoriaAPeliculaUseCase implements AsignarCategoriaAPeliculaInputPort {
@@ -19,6 +20,7 @@ public class AsignarCategoriaAPeliculaUseCase implements AsignarCategoriaAPelicu
     private final DetalleCategoriaEventPublisherOutputPort publisher;
 
     @Override
+    @Transactional
     public void asignar(UUID peliculaId, UUID categoriaId) {
         if (peliculaId == null || categoriaId == null) {
             throw new IllegalArgumentException("IDs obligatorios");

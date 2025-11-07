@@ -13,6 +13,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.time.LocalDateTime;
 import java.util.UUID;
+import org.springframework.transaction.annotation.Transactional;
 
 @RequiredArgsConstructor
 public class CrearPosterUseCase implements CrearPosterInputPort {
@@ -23,6 +24,7 @@ public class CrearPosterUseCase implements CrearPosterInputPort {
     private final PosterEventPublisherOutputPort publisher;
 
     @Override
+    @Transactional
     public Poster crear(UUID peliculaId, MultipartFile archivo, Integer orden) {
         if (peliculaId == null || archivo == null) {
             throw new IllegalArgumentException("Película y archivo son obligatorios");

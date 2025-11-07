@@ -10,6 +10,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.UUID;
+import org.springframework.transaction.annotation.Transactional;
 
 //@Service
 @RequiredArgsConstructor
@@ -20,6 +21,7 @@ public class CrearHorarioUseCase implements CrearHorarioInputPort {
     private final NotificarHorarioOutputPort notificar;
 
     @Override
+    @Transactional
     public Horario crear(Horario horario, Integer fila, Integer columna) {
         horario.validar();
 
