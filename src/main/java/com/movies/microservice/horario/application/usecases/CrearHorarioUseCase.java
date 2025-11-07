@@ -1,6 +1,7 @@
 package com.movies.microservice.horario.application.usecases;
 
 import com.movies.microservice.horario.application.inputports.CrearHorarioInputPort;
+import com.movies.microservice.horario.application.outputports.eventos.NotificarHorarioOutputPort;
 import com.movies.microservice.horario.application.outputports.persistence.HorarioRepositorioOutputPort;
 import com.movies.microservice.horario.application.outputports.query.ValidacionesExternaOutputPort;
 import com.movies.microservice.horario.domain.entities.Horario;
@@ -16,9 +17,10 @@ public class CrearHorarioUseCase implements CrearHorarioInputPort {
 
     private final HorarioRepositorioOutputPort repo;
     private final ValidacionesExternaOutputPort validaciones;
+    private final NotificarHorarioOutputPort notificar;
 
     @Override
-    public Horario crear(Horario horario) {
+    public Horario crear(Horario horario, Integer fila, Integer columna) {
         horario.validar();
 
         if (!validaciones.existePelicula(horario.getPeliculaId())) {
@@ -42,6 +44,8 @@ public class CrearHorarioUseCase implements CrearHorarioInputPort {
         horario.setId(UUID.randomUUID());
         horario.setActivo(true);
 
-        return repo.save(horario);
+        Horario newHorario = repo.save(horario);
+        this.notificar.notificarHorarioCreado(newHorario, fila, columna);
+        return newHorario;
     }
 }

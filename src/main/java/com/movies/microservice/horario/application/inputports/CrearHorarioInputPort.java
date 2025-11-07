@@ -4,5 +4,5 @@ import com.movies.microservice.horario.domain.entities.Horario;
 
 public interface CrearHorarioInputPort {
 
-    Horario crear(Horario horario);
+    Horario crear(Horario horario, Integer fila, Integer columna);
 }

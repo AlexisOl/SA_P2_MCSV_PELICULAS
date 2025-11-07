@@ -26,7 +26,7 @@ public class HorarioControllerAdapter {
 
     @PostMapping
     public ResponseEntity<HorarioResponse> crear(@RequestBody CrearActualizarHorarioRequest req) {
-        Horario creado = crearUC.crear(HorarioRestMapper.toDomain(req));
+        Horario creado = crearUC.crear(HorarioRestMapper.toDomain(req), req.getFila(), req.getColumna());
         return ResponseEntity.status(HttpStatus.CREATED).body(HorarioRestMapper.toResponse(creado));
     }
 

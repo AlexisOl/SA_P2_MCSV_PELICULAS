@@ -1,5 +1,6 @@
 package com.movies.microservice.horario.infrastructure.inputadapters.rest.dto;
 
+import jakarta.validation.constraints.NotNull;
 import lombok.Data;
 
 import java.math.BigDecimal;
@@ -17,4 +18,6 @@ public class CrearActualizarHorarioRequest {
     private LocalDateTime inicio;   // ISO: 2025-12-10T18:30:00
     private LocalDateTime fin;      // ISO
     private BigDecimal precio;
+    private Integer fila;
+    private Integer columna;
 }
